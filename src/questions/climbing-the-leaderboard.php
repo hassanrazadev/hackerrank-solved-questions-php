@@ -14,18 +14,13 @@ function climbingLeaderboard($ranked, $player) {
     rsort($distinctRankings);
 
     $playerRankings = [];
+    $rankIndex = count($distinctRankings) - 1;
 
     foreach ($player as $p) {
-        // Find the appropriate rank for the player's score
-        $rank = 1;
-        foreach ($distinctRankings as $rankedScore) {
-            if ($p < $rankedScore) {
-                $rank++;
-            } else {
-                break;
-            }
+        while ($rankIndex >= 0 && $p >= $distinctRankings[$rankIndex]) {
+            $rankIndex--;
         }
-        $playerRankings[] = $rank;
+        $playerRankings[] = $rankIndex + 2;
     }
 
     return $playerRankings;
